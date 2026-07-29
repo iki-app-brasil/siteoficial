@@ -1,0 +1,37 @@
+:root {
+  /* DNA Impilo — remapeado p/ marca demo Pulso (SaaS B2B) */
+  --color-iris: #16165c;
+  --color-iris-shadow: #232269;
+  --color-iris-glow: #403cd5;
+  --color-iris-pulse: #5350cc;
+  --color-iris-border: #4846c6;
+  --color-lilac: #b1a6f6;
+  --color-cyan: #00b1ff;
+  --color-mint: #00ffaa;
+  --color-white: #ffffff;
+  --color-pearl: #f4f4f6;
+  --color-ash: #d8d8e3;
+  --color-fog: #9494a9;
+
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-caption: 0.75rem;
+  --text-body: 1.0625rem;
+  --text-h2: clamp(1.5rem, 2.5vw, 1.85rem);
+  --text-h1: clamp(2.1rem, 4.5vw, 3.2rem);
+  --text-display: clamp(2.75rem, 6.5vw, 4.5rem);
+
+  --tracking-display: -0.045em;
+  --tracking-h1: -0.035em;
+
+  --section-gap: clamp(4rem, 9vw, 6.5rem);
+  --wrap: 1120px;
+  --gutter: clamp(1.25rem, 4vw, 2rem);
+  --nav-h: 68px;
+
+  --radius-btn: 9999px;
+  --radius-card: 24px;
+  --radius-lg: 32px;
+
+  --shadow-violet: 0 24px 60px -20px rgba(22, 22, 92, 0.65);
+}
