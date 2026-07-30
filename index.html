@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Methz DS · SaaS — Pulso</title>
-    <meta
-      name="description"
-      content="Pulso — design system Methz para SaaS: midnight iris, cyan de dados, pills. Console B2B de ops e receita."
-    />
+    <title>IkiApp — Idiomas com Kaizen e Ikigai</title>
+    <meta name="description" content="IkiApp — Aplicativo de estudo de idiomas com filosofia japonesa (Kaizen e Ikigai)." />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#16165c" />
 
@@ -20,6 +17,39 @@
 
     <link rel="stylesheet" href="./variables.css?v=pulso-footer-credit-2" />
     <link rel="stylesheet" href="./style.css?v=pulso-footer-credit-2" />
+  
+    <!-- ========================================== -->
+    <!-- 🟢 TOPO DE FUNIL (Visitantes) - PageView   -->
+    <!-- ========================================== -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSWV2CQ4Y6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WSWV2CQ4Y6');
+    </script>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1546551013869737');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1546551013869737&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- ========================================== -->
+
   </head>
   <body class="ds-saas">
     <a class="skip" href="#biblioteca">Ir para a biblioteca</a>
@@ -780,5 +810,78 @@
     </main>
 
     <script src="./motion.js?v=nitidez-1"></script>
+  
+    <!-- ========================================== -->
+    <!-- TRACKING AVANÇADO: MEIO E FUNDO DE FUNIL   -->
+    <!-- ========================================== -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        
+        // 🙎‍♂️ Usuário Fictício (MOCK) para simular o envio de dados na aula
+        const mockUser = {
+          firstName: "João",
+          email: "joao@exemplo.com",
+          phone: "5511999999999",
+          city: "São Paulo",
+          userAgent: navigator.userAgent
+        };
+
+        // Função genérica para enviar eventos para o nosso backend Node.js (CAPI)
+        async function sendToBackend(eventName, customData = {}) {
+          try {
+            const response = await fetch('http://localhost:3000/api/track', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                eventName,
+                userData: mockUser,
+                customData
+              })
+            });
+            const data = await response.json();
+            console.log(`[Node.js CAPI] Servidor respondeu:`, data);
+          } catch (err) {
+            console.error('[Node.js CAPI] Erro de conexão com o servidor local (rode `node server.js`).', err);
+          }
+        }
+        
+        // 🟡 MEIO DE FUNIL (Dados Sujos / Intenção) - InitiateCheckout
+        const midFunnelBtns = document.querySelectorAll(
+          '.hero-split__actions .btn, .nav-bar__actions .btn'
+        );
+        
+        midFunnelBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            console.log('🟡 [TRACKING - MEIO DE FUNIL] Evento: InitiateCheckout disparado!');
+            // Disparo Meta Pixel (Navegador)
+            if(typeof fbq === 'function') fbq('track', 'InitiateCheckout');
+            // Disparo GA4 (Navegador)
+            if(typeof gtag === 'function') gtag('event', 'begin_checkout');
+            
+            // Disparo Meta API (Servidor CAPI)
+            sendToBackend('InitiateCheckout');
+          });
+        });
+
+        // 🔴 FUNDO DE FUNIL (Compradores / R$) - Purchase
+        const bottomFunnelBtns = document.querySelectorAll('.price-card .btn');
+        
+        bottomFunnelBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            console.log('🔴 [TRACKING - FUNDO DE FUNIL] Evento: Purchase disparado! (Conversão)');
+            // Disparo Meta Pixel (Navegador)
+            if(typeof fbq === 'function') fbq('track', 'Purchase', {value: 97.00, currency: 'BRL'});
+            // Disparo GA4 (Navegador)
+            if(typeof gtag === 'function') gtag('event', 'purchase', {value: 97.00, currency: 'BRL'});
+            
+            // Disparo Meta API (Servidor CAPI)
+            sendToBackend('Purchase', { value: 97.00, currency: 'BRL' });
+          });
+        });
+
+      });
+    </script>
+    <!-- ========================================== -->
+
   </body>
 </html>
