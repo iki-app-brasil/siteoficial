@@ -826,10 +826,11 @@
           userAgent: navigator.userAgent
         };
 
-        // Função genérica para enviar eventos para o nosso backend Node.js (CAPI)
+        // Função genérica para enviar eventos para o nosso backend na Vercel (CAPI)
         async function sendToBackend(eventName, customData = {}) {
           try {
-            const response = await fetch('http://localhost:3000/api/track', {
+            // Repare que agora usamos apenas /api/track em vez de localhost
+            const response = await fetch('/api/track', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -839,9 +840,9 @@
               })
             });
             const data = await response.json();
-            console.log(`[Node.js CAPI] Servidor respondeu:`, data);
+            console.log(`[Vercel CAPI] Servidor respondeu:`, data);
           } catch (err) {
-            console.error('[Node.js CAPI] Erro de conexão com o servidor local (rode `node server.js`).', err);
+            console.error('[Vercel CAPI] Erro de conexão com a Serverless da Vercel.', err);
           }
         }
         
